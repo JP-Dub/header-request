@@ -1,7 +1,10 @@
 FCC Challenge: Request Header Parser Microservice
 =================================================
 
-Created for Free Code Camp by Joel Piazza
+Created for "FreeCodeCamp" by Joel Piazza
 
-Email: jDub@quantumleap-recruitment.com
-Codepen: https://codepen.io/J-Dub/
+Email:<br>
+&ensp;jDub@quantumleap-recruitment.com<br>
+
+Codepen:<br> 
+&ensp;https://codepen.io/J-Dub/
