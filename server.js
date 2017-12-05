@@ -21,25 +21,34 @@ app.get("/", function (request, response) {
 app.use(requestIp.mw())
 
 app.use(function(req, res, next) {      
-       obj.ipaddress = req.clientIp;
+       obj.ipaddress = req.clientIp;// returns user IP address
        next();
    });
 
 app.get('/:api/whoami', function(req, res, next) {
-     var lan = req.acceptsLanguages();
+     var lan = req.acceptsLanguages();//returns user language
      var enc = req.headers;
      var agent = enc;
 
     
-    for(var key in agent) {
-    if (key === "x-forwarded-for" || key === "user-agent" || key === "accept-language") {  
-      obj.ipaddress = agent[key];
-
+    for(var key in agent) { 
+      switch (key){
+        case "x-forwarded-for":
+          obj.ipaddress = agent[key];
+          break;
+        case "user-agent":
+          obj.software = agent[key];
+          break;
+        case "accept-language":
+          obj.language = agent[key];
+          break;
+       }
     }
-    }
-  console.log(val)
-     obj.language = lan[0];
-     obj.software = enc;
+    console.log(obj.software)
+  console.log(obj.ipaddress)
+  console.log(obj.language)
+   //  obj.language = lan[0];
+    // obj.software = enc;
      res.json(obj);
 });
 
@@ -48,6 +57,12 @@ app.get('/:api/whoami', function(req, res, next) {
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
+
+
+     /*if (key === "x-forwarded-for" || key === "user-agent" || key === "accept-language") {  
+      obj.ipaddress = agent[key];
+
+    }*/
 
 
 /*
