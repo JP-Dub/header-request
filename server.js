@@ -26,6 +26,8 @@ app.get('/:api/whoami', function(req, res, next) {
      app.use(function(req, res, next) {
        //const ip = req.clientIp;
        obj.ipaddress = req.clientIp;
+       obj.language = req.http.acceptEncoding;
+       obj.software = req.http.userAgent;
        res.json(obj);
    });
 
