@@ -11,6 +11,10 @@ var obj = {
           "language": "null"
        };
 
+app.get("/", function (request, response) {
+  response.sendFile(__dirname + '/views/index.html');
+});
+
 app.use(requestIp.mw())
 
 app.use(function(req, res, next) {      
@@ -19,18 +23,9 @@ app.use(function(req, res, next) {
    });
 
 app.get('/:api/whoami', function(req, res, next) {
-    //console.log(req.url)
-    var date = req.params.time; //returns the search parameter
-    
-   // inside middleware handler 
-   // app.use(requestIp.mw())
- /*   
-   app.use(function(req, res, next) {
-       const ip = req.clientIp;
-       res.end(ip, "your ip address");
-   });*/
-  res.json(obj);
-
+     var lan = req.acceptsLanguages();
+     obj.language = lan[0];
+     res.json(obj);
 });
 
 
