@@ -14,24 +14,25 @@ var obj = {
 app.get('/:api/whoami', function(req, res, next) {
     //console.log(req.url)
     var date = req.params.time; //returns the search parameter
-    next()
+    
    // inside middleware handler 
-    app.use(requestIp.mw())
+   // app.use(requestIp.mw())
  /*   
    app.use(function(req, res, next) {
        const ip = req.clientIp;
        res.end(ip, "your ip address");
    });*/
-  
+     app.use(requestIp.mw())
      app.use(function(req, res, next) {
        //const ip = req.clientIp;
        obj.ipaddress = req.clientIp;
-       obj.language = req.http.acceptEncoding;
-       obj.software = req.http.userAgent;
+       //obj.language = req.http.acceptEncoding;
+       //obj.software = req.http.userAgent;
        res.json(obj);
    });
-
 });
+
+
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
