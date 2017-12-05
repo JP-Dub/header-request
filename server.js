@@ -17,6 +17,7 @@ app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
+// only edit below this line //
 app.use(requestIp.mw())
 
 app.use(function(req, res, next) {      
@@ -26,7 +27,8 @@ app.use(function(req, res, next) {
 
 app.get('/:api/whoami', function(req, res, next) {
      var lan = req.acceptsLanguages();
-     var enc = req.userAgent();
+     var enc = req.headers.usergent;
+     var agent = enc.user_agent;
      obj.language = lan[0];
      obj.software = enc;
      res.json(obj);
@@ -37,6 +39,30 @@ app.get('/:api/whoami', function(req, res, next) {
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
+
+
+/*
+
+app.use(requestIp.mw())
+
+app.use(function(req, res, next) {      
+       obj.ipaddress = req.clientIp;
+       next();
+   });
+
+app.get('/:api/whoami', function(req, res, next) {
+     var lan = req.acceptsLanguages();
+     var enc = req.headers;
+     obj.language = lan[0];
+     obj.software = enc;
+     res.json(obj);
+});
+
+*/
+
+
+
+
 
 /*
 // http://expressjs.com/en/starter/static-files.html
