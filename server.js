@@ -1,23 +1,22 @@
-// server.js
-// where your node app starts
-
 // init project
 var express = require('express');
 var app = express();
 var requestIp = require('request-ip');
 var obj = {
-           "ipaddress": "",
-          "software": "null",
-          "language": "null"
-       };
+  "ipaddress": "null",
+  "language": "null",
+  "software": "null"
+  };
 
+// allows use of the "public" folder
 app.use(express.static('public'));
 
+// publishes the index.html
 app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
-// only edit below this line //
+// app.use, middleware used by npm "request-ip
 app.use(requestIp.mw())
 
 app.use(function(req, res, next) {      
@@ -26,18 +25,19 @@ app.use(function(req, res, next) {
    });
 
 app.get('/:api/whoami', function(req, res, next) {
-     var language = req.acceptsLanguages();//returns user language array
-  
-     var agent = req.headers;
-     var reg = /\((.*?)\)/i;
-      
+  var language = req.acceptsLanguages();//returns user language array     
+  var agent = req.headers;
+  var reg = /\((.*?)\)/i;
+     
+  obj.language = language[0];  
     
-    for(var key in agent) { 
-      if (key === "user-agent") {
-          var user = agent[key].match(reg);
-          obj.software = user[1];
-          }
-      /*
+  for(var key in agent) { 
+    if (key === "user-agent") {
+      var user = agent[key].match(reg);
+      obj.software = user[1];
+    }
+      /* 
+      // intially used header and manually parsed data to return required data
       switch (key){
         case "x-forwarded-for":
           obj.ipaddress = agent[key];
@@ -53,10 +53,8 @@ app.get('/:api/whoami', function(req, res, next) {
        */
     }
     
-
      res.json(obj);
 });
-
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
