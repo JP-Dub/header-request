@@ -6,7 +6,9 @@ var express = require('express');
 var app = express();
 var requestIp = require('request-ip');
 var obj = {
-           "ipaddress": ""
+           "ipaddress": "",
+          "software": "",
+          "language": ""
        };
 
 app.get('/:api/whoami', function(req, res, next) {
@@ -22,9 +24,9 @@ app.get('/:api/whoami', function(req, res, next) {
    });*/
   
      app.use(function(req, res, next) {
-       const ip = req.clientIp;
-       //obj.ipaddress = ip;
-       res.end(ip, "your ip address");
+       //const ip = req.clientIp;
+       obj.ipaddress = req.clientIp;
+       res.json(obj);
    });
 
 });
