@@ -27,11 +27,15 @@ app.use(function(req, res, next) {
 
 app.get('/:api/whoami', function(req, res, next) {
      var lan = req.acceptsLanguages();
-     var enc = req.headers.usergent;
-     var agent = req.getHeader();
-    console.log(agent)
+     var enc = req.headers;
+     var agent = JSON.stringify(enc);
+    //console.log(agent);
+    for(var key in agent) {
+      var val = agent[key];
+      console.log(two)
+    }
      obj.language = lan[0];
-     obj.software = agent;
+     obj.software = enc;
      res.json(obj);
 });
 
