@@ -11,6 +11,8 @@ var obj = {
           "language": "null"
        };
 
+app.use(express.static('public'));
+
 app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
@@ -24,7 +26,9 @@ app.use(function(req, res, next) {
 
 app.get('/:api/whoami', function(req, res, next) {
      var lan = req.acceptsLanguages();
+     var enc = req.acceptsCharset();
      obj.language = lan[0];
+     obj.software = enc;
      res.json(obj);
 });
 
