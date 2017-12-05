@@ -7,8 +7,8 @@ var app = express();
 var requestIp = require('request-ip');
 var obj = {
            "ipaddress": "",
-          "software": "",
-          "language": ""
+          "software": "null",
+          "language": "null"
        };
 
 app.get('/:api/whoami', function(req, res, next) {
@@ -24,7 +24,7 @@ app.get('/:api/whoami', function(req, res, next) {
    });*/
      app.use(requestIp.mw())
      app.use(function(req, res, next) {
-       //const ip = req.clientIp;
+      
        obj.ipaddress = req.clientIp;
        //obj.language = req.http.acceptEncoding;
        //obj.software = req.http.userAgent;
