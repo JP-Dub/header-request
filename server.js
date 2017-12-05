@@ -11,6 +11,13 @@ var obj = {
           "language": "null"
        };
 
+app.use(requestIp.mw())
+
+app.use(function(req, res, next) {      
+       obj.ipaddress = req.clientIp;
+       next();
+   });
+
 app.get('/:api/whoami', function(req, res, next) {
     //console.log(req.url)
     var date = req.params.time; //returns the search parameter
@@ -22,14 +29,8 @@ app.get('/:api/whoami', function(req, res, next) {
        const ip = req.clientIp;
        res.end(ip, "your ip address");
    });*/
-     app.use(requestIp.mw())
-     app.use(function(req, res, next) {
-      
-       obj.ipaddress = req.clientIp;
-       //obj.language = req.http.acceptEncoding;
-       //obj.software = req.http.userAgent;
-       res.json(obj);
-   });
+  res.json(obj);
+
 });
 
 
