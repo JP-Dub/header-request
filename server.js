@@ -4,10 +4,36 @@
 // init project
 var express = require('express');
 var app = express();
+var requestIp = require('request-ip');
+var obj = {
+           "ipaddress": ""
+       };
 
-// we've started you off with Express, 
-// but feel free to use whatever libs or frameworks you'd like through `package.json`.
+app.get('/:api/whoami', function(req, res, next) {
+    //console.log(req.url)
+    var date = req.params.time; //returns the search parameter
+    next()
+   // inside middleware handler 
+    app.use(requestIp.mw())
+ /*   
+   app.use(function(req, res, next) {
+       const ip = req.clientIp;
+       res.end(ip, "your ip address");
+   });*/
+  
+     app.use(function(req, res, next) {
+       const ip = req.clientIp;
+       //obj.ipaddress = ip;
+       res.end(ip, "your ip address");
+   });
 
+});
+// listen for requests :)
+var listener = app.listen(process.env.PORT, function () {
+  console.log('Your app is listening on port ' + listener.address().port);
+});
+
+/*
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
 
@@ -32,8 +58,4 @@ var dreams = [
   "Climb a really tall mountain",
   "Wash the dishes"
 ];
-
-// listen for requests :)
-var listener = app.listen(process.env.PORT, function () {
-  console.log('Your app is listening on port ' + listener.address().port);
-});
+*/
