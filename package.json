@@ -17,14 +17,20 @@
     "node": "8.x"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/welcome-project"
+    "type": "git",
+    "url": "https://github.com/JP-Dub/header-request"
   },
+  "author": "joel",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JP-Dub/header-request/issues"
+  },
   "keywords": [
     "node",
     "glitch",
     "express",
     "fcc",
-    "freecodecamp"
+    "freecodecamp",
+    "header request"
   ]
 }
