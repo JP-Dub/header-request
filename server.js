@@ -26,29 +26,34 @@ app.use(function(req, res, next) {
    });
 
 app.get('/:api/whoami', function(req, res, next) {
-     var lan = req.acceptsLanguages();//returns user language
-     var enc = req.headers;
-     var agent = enc;
-
+     var language = req.acceptsLanguages();//returns user language array
+  
+     var agent = req.headers;
+     var reg = /\((.*?)\)/i;
+      
     
     for(var key in agent) { 
+      if (key === "user-agent") {
+          var user = agent[key].match(reg);
+          obj.software = user[1];
+          }
+      /*
       switch (key){
         case "x-forwarded-for":
           obj.ipaddress = agent[key];
           break;
         case "user-agent":
-          obj.software = agent[key];
+          var user = agent[key].match(reg);
+          obj.software = user[1];
           break;
         case "accept-language":
           obj.language = agent[key];
           break;
        }
+       */
     }
-    console.log(obj.software)
-  console.log(obj.ipaddress)
-  console.log(obj.language)
-   //  obj.language = lan[0];
-    // obj.software = enc;
+    
+
      res.json(obj);
 });
 
